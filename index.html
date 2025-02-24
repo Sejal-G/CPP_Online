@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        form {
+            max-width: 300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .security-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            let isValid = true;
+            let firstName = document.getElementById("first-name");
+            let lastName = document.getElementById("last-name");
+            let dob = document.getElementById("dob");
+            let security = document.getElementById("security");
+            let errors = document.querySelectorAll(".error");
+            
+            errors.forEach(error => error.remove());
+
+            if (firstName.value.length < 3) {
+                showError(firstName, "First name must be at least 3 characters long.");
+                isValid = false;
+            }
+            
+            if (!/^[a-zA-Z]+$/.test(lastName.value)) {
+                showError(lastName, "Last name cannot contain spaces or special characters.");
+                isValid = false;
+            }
+            
+            if (!dob.value) {
+                showError(dob, "Please enter your date of birth.");
+                isValid = false;
+            }
+            
+            if (!security.value) {
+                showError(security, "Security check cannot be empty.");
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                event.preventDefault();
+            }
+        }
+        
+        function showError(input, message) {
+            let error = document.createElement("div");
+            error.className = "error";
+            error.textContent = message;
+            input.parentNode.insertBefore(error, input.nextSibling);
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="validateForm(event)">
+        <h2 aria-hidden="true">Case Study</h2>
+        
+        <label for="pronouns">Pronouns:</label>
+        <select id="pronouns" name="pronouns">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name" required>
+        
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name" required>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+        
+        <div class="security-check">
+            <label for="security">Security Check:</label>
+            <input type="text" id="security" name="security" required>
+            <img src="captcha.jpg" alt="Security Image" width="100">
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
