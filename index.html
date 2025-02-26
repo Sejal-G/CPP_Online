@@ -33,7 +33,7 @@
             
             errors.forEach(error => error.remove());
 
-            if (firstName.value.length < 3) {
+            if (firstName.value.length < 3 || !/^[a-zA-Z]+$/.test(lastName.value)) {
                 showError(firstName, "First name must be at least 3 characters long.");
                 isValid = false;
             }
@@ -83,7 +83,7 @@
         <input type="text" id="last-name" name="last-name" required>
         
         <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required>
+        <input type="text" id="dob" name="dob" required>
         
         <div class="security-check">
             <label for="security">Security Check:</label>
