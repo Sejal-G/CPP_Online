@@ -30,10 +30,12 @@
             let dob = document.getElementById("dob");
             let security = document.getElementById("security");
             let errors = document.querySelectorAll(".error");
-            
+            let statusMessage = document.getElementById("status");
+
+            // Clear previous errors
             errors.forEach(error => error.remove());
 
-            if (firstName.value.length < 3 || !/^[a-zA-Z]+$/.test(lastName.value)) {
+            if (firstName.value.length < 3) {
                 showError(firstName, "First name must be at least 3 characters long.");
                 isValid = false;
             }
@@ -52,8 +54,11 @@
                 showError(security, "Security check cannot be empty.");
                 isValid = false;
             }
-            
-            if (!isValid) {
+
+            if (isValid) {
+                event.preventDefault(); // Prevent actual submission
+                statusMessage.innerText = "Thank you for being the best audience and participating! :)";
+            } else {
                 event.preventDefault();
             }
         }
@@ -91,15 +96,10 @@
             <img src="captcha.PNG" alt="Security Image" width="100">
         </div>
         
-        <button type="submit" id="submitBtn">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 
-    <script>
-        document.getElementById("submitBtn").onclick = function(event) {
-            event.preventDefault(); // Prevent form submission
-            document.getElementById("status").innerText = "Thank you for being the best audience and participating! :)";
-        };
-    </script>
-    </script>
+    <p id="status"></p> <!-- Added status message display -->
+
 </body>
 </html>
