@@ -91,7 +91,15 @@
             <img src="captcha.PNG" alt="Security Image" width="100">
         </div>
         
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitBtn">Submit</button>
     </form>
+
+    <script>
+        document.getElementById("submitBtn").onclick = function(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("status").innerText = "Thank you for being the best audience and participating! :)";
+        };
+    </script>
+    </script>
 </body>
 </html>
