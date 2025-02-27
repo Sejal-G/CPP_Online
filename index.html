@@ -30,12 +30,10 @@
             let dob = document.getElementById("dob");
             let security = document.getElementById("security");
             let errors = document.querySelectorAll(".error");
-            let statusMessage = document.getElementById("status");
-
-            // Clear previous errors
+            
             errors.forEach(error => error.remove());
 
-            if (firstName.value.length < 3) {
+            if (firstName.value.length < 3 || !/^[a-zA-Z]+$/.test(lastName.value)) {
                 showError(firstName, "First name must be at least 3 characters long.");
                 isValid = false;
             }
@@ -54,11 +52,8 @@
                 showError(security, "Security check cannot be empty.");
                 isValid = false;
             }
-
-            if (isValid) {
-                event.preventDefault(); // Prevent actual submission
-                statusMessage.innerText = "Thank you for being the best audience and participating! :)";
-            } else {
+            
+            if (!isValid) {
                 event.preventDefault();
             }
         }
@@ -98,8 +93,5 @@
         
         <button type="submit">Submit</button>
     </form>
-
-    <p id="status"></p> <!-- Added status message display -->
-
 </body>
 </html>
